@@ -2,8 +2,10 @@ package com.kevin.kotpref.sample
 
 import android.app.Activity
 import android.os.Bundle
+import android.widget.Toast
 import com.kevin.kotpref.KotPref
 import com.kevin.kotpref.pref
+import com.kevin.kotpref.sample.databinding.ActivityMainBinding
 
 /**
  * Test
@@ -16,10 +18,17 @@ import com.kevin.kotpref.pref
  */
 class MainActivity: Activity() {
 
-    val name by pref("zwenkai")
+    private var count by pref(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         KotPref.init(this)
+
+        binding.fab.setOnClickListener {
+            Toast.makeText(MainActivity@this, "$count", Toast.LENGTH_SHORT).show()
+            count += 1
+        }
     }
 }
